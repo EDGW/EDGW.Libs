@@ -1,4 +1,6 @@
 ﻿using EDGW.Data.Registries;
+using EDGW.Globalization;
+using Newtonsoft.Json.Linq;
 
 namespace EDGW.IO
 {
@@ -8,8 +10,12 @@ namespace EDGW.IO
         {
             IOResolvers.Register(new BasicResolver());
         }
+        public static void LoadLanguageFiles()
+        {
+            Languages.AddLanguageFile("zh_cn", new JsonLanguageFile(JObject.Parse(LanRes.zh_cn)));
+        }
         public static IRegistry<IIOResolver> IOResolvers { get; } = new PriorityRegistry<IIOResolver>();
-
+        
         public static (List<IFile> files, List<IDirectory> directories) ReadFile(string name, IDirectory parent, IIOProvider provider)
         {
             foreach(IIOResolver res in IOResolvers)

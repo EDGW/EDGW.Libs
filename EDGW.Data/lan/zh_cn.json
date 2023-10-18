@@ -1,0 +1,7 @@
+{
+  "edgw.data": {
+    "exceptions": {
+      "duplicate_registration": "键值 {0} 被重复注册。"
+    }
+  }
+}

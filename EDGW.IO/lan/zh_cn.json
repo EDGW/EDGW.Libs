@@ -1,0 +1,8 @@
+{
+  "edgw.io": {
+    "exceptions": {
+      "file_not_found": "未找到在 {0} 位置处的文件。",
+      "directory_not_found": "未找到在 {0} 位置处的文件夹。"
+    }
+  }
+}

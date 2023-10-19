@@ -1,4 +1,5 @@
 ﻿using EDGW.Globalization;
+using System.Transactions;
 
 namespace EDGW.IO
 {
@@ -10,7 +11,7 @@ namespace EDGW.IO
             Parent = parent;
             Name = name;
         }
-
+        internal object locker = new();
         public IIOProvider IOProvider { get; }
         public IDirectory Parent { get; }
 
@@ -46,12 +47,26 @@ namespace EDGW.IO
                 }
             }
         }
+        public void SaveUsingTypes(IUsingTypeSet usingtypeset)
+        {
+            if (!IOProvider.IsReadOnly)
+            {
+                var nme = GetUsingTypeFileName(Name);
+                if (!Parent.ExistsFile(nme))
+                {
+                    IOProvider.WriteAllText(nme, new UsingTypeSet().ToJson().ToString());
+                }
+                if (Parent.GetFile(nme) is PermissionFile perm)
+                {
+                    perm.WriteUsingType(usingtypeset);
+                }
+            }
+        }
         public static string GetUsingTypeFileName(string file) => $"$permission:|{file}|$";
 
         public Stream Open(FileMode mode, FileAccess access)
         {
-            //TODO:FileOpen
-            throw new NotImplementedException();
+            return new NormalFileStream(this, mode, access);
         }
 
         public IUsingTypeSet UsingType => GetUsingTypes();

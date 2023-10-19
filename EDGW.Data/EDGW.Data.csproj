@@ -4,6 +4,14 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>EDGW.Data</Title>
+    <Version>0.0.1</Version>
+    <Company />
+    <Authors>EDGW_</Authors>
+    <Description>EDGW.Data Pack v0.0.1</Description>
+    <Copyright>Copyright © EDGW_ 2023.</Copyright>
+    <RepositoryUrl>https://edgw.github.io/EDGW/EDGW.Libs</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +31,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LanRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="releases\" />
   </ItemGroup>
 
 </Project>

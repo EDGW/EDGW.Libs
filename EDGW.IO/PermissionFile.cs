@@ -34,7 +34,10 @@ namespace EDGW.IO
             catch { }
             return new();
         }
-
+        public void WriteUsingType(IUsingTypeSet usingtype)
+        {
+            IOProvider.WriteAllText(Name, usingtype.ToJson().ToString());
+        }
         public Stream Open(FileMode mode, FileAccess access)
         {
             throw new NotSupportedException();

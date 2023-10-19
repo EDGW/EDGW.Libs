@@ -36,6 +36,7 @@ namespace EDGW.IO
 
         HashSet<string> IIOProvider.ProcessedNames => new();
 
+
         public override string[] GetPhysicalDirectories()
         {
             if (Directory.Exists(PhysicalPath))
@@ -93,6 +94,10 @@ namespace EDGW.IO
         Stream IIOProvider.OpenWrite(string name)
         {
             return new FileStream(EPath.Combine(PhysicalPath, name), FileMode.Open, FileAccess.Write);
+        }
+        public Stream CreateStream(string name, FileMode mode, FileAccess access)
+        {
+            return new FileStream(EPath.Combine(PhysicalPath, name), mode, access);
         }
     }
 }

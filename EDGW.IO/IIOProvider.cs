@@ -5,7 +5,7 @@
         public Stream OpenRead(string name);
         public Stream OpenWrite(string name);
         public Stream OpenRW(string name);
-        public Stream CreateStream(FileMode mode,FileAccess access);
+        public Stream CreateStream(string name, FileMode mode, FileAccess access);
         public bool IsReadOnly { get; }
         public bool ExistsFile(string name);
         public bool ExistsDirectory(string name);

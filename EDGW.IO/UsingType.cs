@@ -6,8 +6,8 @@ namespace EDGW.IO
     public class UsingType : IEquatable<UsingType?>
     {
         public static UsingType FREE { get; } = new("edgw.io.usingtype.free", "edgw.io.free", true, true, true);
-        public static UsingType READING { get; } = new("edgw.io.usingtype.reading", "edgw.io.reading", true, true, false);
-        public static UsingType WRITING { get; } = new("edgw.io.usingtype.writing", "edgw.io.writing", false, true, false);
+        public static UsingType READING { get; } = new("edgw.io.usingtype.reading", "edgw.io.reading", false, true, false);
+        public static UsingType WRITING { get; } = new("edgw.io.usingtype.writing", "edgw.io.writing", false, false, false);
         public static UsingType READONLY { get; } = new("edgw.io.usingtype.readonly", "edgw.io.readonly", false, true, false);
         public static UsingType SYNCHRONIZING { get; } = new("edgw.io.usingtype.synchronizing", "edgw.io.synchronizing", false, false, false);
         public UsingType(Text text, Identifier name, bool isModifiable, bool isReadable, bool isRemovable)

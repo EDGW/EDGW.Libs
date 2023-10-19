@@ -7,7 +7,7 @@
             lock (file.locker)
             {
                 File = file;
-                Stream = file.IOProvider.CreateStream(mode, access);
+                Stream = file.IOProvider.CreateStream(file.Name, mode, access);
                 if (access == FileAccess.Read) UsingType = UsingType.READING;
                 else if (access == FileAccess.ReadWrite) UsingType = UsingType.WRITING;
                 else if (access == FileAccess.Write) UsingType = UsingType.WRITING;

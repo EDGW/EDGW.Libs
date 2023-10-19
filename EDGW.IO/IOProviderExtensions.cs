@@ -13,7 +13,7 @@
         }
         public static void WriteAllText(this IIOProvider reader, string name, string text)
         {
-            using (var stream = reader.CreateStream(FileMode.OpenOrCreate, FileAccess.Write))
+            using (var stream = reader.CreateStream(name,FileMode.OpenOrCreate, FileAccess.Write))
             {
                 using (var st = new StreamWriter(stream))
                 {

@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 /EDGW.IOTests/EDGW.IOTests.csproj
 /EDGW.IOTests/EDGW.IOTests.csproj
+/EDGW.IO.CompressionTests/EDGW.IO.CompressionTests.csproj
+/EDGW.IO.CompressionTests/ZipArchiveFileTests.cs

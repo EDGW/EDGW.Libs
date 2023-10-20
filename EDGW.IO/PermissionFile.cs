@@ -1,5 +1,6 @@
 ﻿using EDGW.Globalization;
 using Newtonsoft.Json.Linq;
+using NotSupportedException = EDGW.Globalization.NotSupportedException;
 
 namespace EDGW.IO
 {
@@ -40,7 +41,7 @@ namespace EDGW.IO
         }
         public Stream Open(FileMode mode, FileAccess access)
         {
-            throw new NotSupportedException();
+            throw new NotSupportedException(TextParsers.EXCEPTIONS.GetText("permissions_file_is_locked"));
         }
     }
 }

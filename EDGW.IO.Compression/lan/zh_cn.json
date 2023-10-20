@@ -1,0 +1,7 @@
+{
+  "edgw.io.compression": {
+    "exceptions": {
+      "zip_file_is_readonly": "打开的Zip文件是只读的，不支持写入操作。"
+    }
+  }
+}

@@ -10,4 +10,19 @@
     <ProjectReference Include="..\EDGW.IO\EDGW.IO.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="LanRes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LanRes.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="LanRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LanRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

@@ -3,7 +3,10 @@
     "exceptions": {
       "file_not_found": "未找到在 {0} 位置处的文件。",
       "directory_not_found": "未找到在 {0} 位置处的文件夹。",
-      "file_already_exists": "已存在名为 {0} 的文件。"
+      "file_already_exists": "已存在名为 {0} 的文件。",
+      "unresolvable_directory": "无法解析文件夹 {0} (在 {1} 中)。",
+      "unresolvable_file": "无法解析文件 {0} (在 {1} 中)。",
+      "permissions_file_is_locked": "不能打开权限规定文件。"
     }
   }
 }

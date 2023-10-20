@@ -9,7 +9,7 @@ namespace EDGW.IO
 {
     internal static class TextParsers
     {
-        public static Identifier BaseIdentifier { get; } = "edgw.io";
-        public static TextParser EXCEPTIONS { get; } = new TextParser(BaseIdentifier + "exceptions");
+        public static Identifier Id { get; } = "edgw.io";
+        public static TextParser EXCEPTIONS { get; } = new TextParser(Id + "exceptions");
     }
 }

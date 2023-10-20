@@ -1,6 +1,7 @@
 ﻿using EDGW.Data.Registries;
 using EDGW.Globalization;
 using Newtonsoft.Json.Linq;
+using NotSupportedException = EDGW.Globalization.NotSupportedException;
 
 namespace EDGW.IO
 {
@@ -26,7 +27,7 @@ namespace EDGW.IO
                     return file.Value;
                 }
             }
-            throw new NotSupportedException();
+            throw new NotSupportedException(TextParsers.EXCEPTIONS.GetText("unresolvable_file", name, parent.FullName));
         }
         public static (List<IFile> files, List<IDirectory> directories) ReadDirectory(string name, IDirectory parent, IIOProvider provider)
         {
@@ -38,7 +39,7 @@ namespace EDGW.IO
                     return dir.Value;
                 }
             }
-            throw new NotSupportedException();
+            throw new NotSupportedException(TextParsers.EXCEPTIONS.GetText("unresolvable_directory", name, parent.FullName));
         }
         public static IFile? GetFile(string name, IDirectory parent, IIOProvider provider)
         {

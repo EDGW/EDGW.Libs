@@ -6,12 +6,12 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>EDGW.Data</Title>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <Company />
     <Authors>EDGW_</Authors>
     <Description>EDGW.Data Pack v0.0.1</Description>
     <Copyright>Copyright © EDGW_ 2023.</Copyright>
-    <RepositoryUrl>https://edgw.github.io/EDGW/EDGW.Libs</RepositoryUrl>
+    <RepositoryUrl>https://github.com/EDGW/EDGW.Libs</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

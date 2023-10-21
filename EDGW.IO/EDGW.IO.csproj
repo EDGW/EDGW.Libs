@@ -5,9 +5,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Title>EDGW.IO</Title>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <Authors>EDGW_</Authors>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/EDGW/EDGW.Libs</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

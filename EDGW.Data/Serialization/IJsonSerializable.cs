@@ -9,6 +9,6 @@ namespace EDGW.Data.Serialization
 {
     public interface IJsonSerializable
     {
-        public JObject ToJson();
+        public JToken ToJson();
     }
 }

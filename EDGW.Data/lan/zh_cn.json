@@ -1,7 +1,11 @@
 {
   "edgw.data": {
     "exceptions": {
-      "duplicate_registration": "键值 {0} 被重复注册。"
+      "json": {
+        "missing_key": "格式 {1} 要求包含 {0} 键，但是输入的序列文本中不含 {0} 键：\n{2}\n。"
+      },
+      "duplicate_registration": "键值 {0} 被重复注册。",
+      "object_cast": "无法将类型从 {0} 转换成 {1}。"
     }
   }
 }

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System.Reflection;
 
 namespace EDGW.Data.Serialization
 {
@@ -16,6 +17,23 @@ namespace EDGW.Data.Serialization
             {
                 if(value is Enum enu)
                 {
+                    if (value.GetType().GetCustomAttribute<EnumTextAttribute>() != null)
+                    {
+                        int i = 0;
+                        foreach(FieldInfo field in value.GetType().GetFields())
+                        {
+                            if (i++ == 0) continue;
+                            var val = field.GetValue(null);
+                            if (val?.Equals(value) == true)
+                            {
+                                var attr = field.GetCustomAttribute<EnumTextAttribute>();
+                                if (attr != null)
+                                {
+                                    return attr.Text;
+                                }else return Enum.GetName(typeof(T), value);
+                            }
+                        }
+                    }
                     return Enum.GetName(typeof(T), value);
                 }
             }
@@ -37,14 +55,35 @@ namespace EDGW.Data.Serialization
                 if (typeof(T) == typeof(JValue)) { return (T)(object)token; }
                 if (typeof(Enum).IsAssignableFrom(typeof(T)))
                 {
+                    if (typeof(T).GetCustomAttribute<EnumTextAttribute>() != null)
+                    {
+                        int i = 0;
+                        foreach (FieldInfo field in typeof(T).GetFields())
+                        {
+                            if (i++ == 0) continue;
+                            var val = field.GetValue(null);
+                            if (val != null)
+                            {
+                                var attr = field.GetCustomAttribute<EnumTextAttribute>();
+                                if (attr != null && attr.Text == token.ToString())
+                                {
+                                    return (T)val;
+                                }
+                            }
+                        }
+                    }
                     return (T)Enum.Parse(typeof(T), token.ToString());
                 }
                 throw new ObjectCastException(typeof(JToken), typeof(T));
             }
+#if DEBUG
+            finally { }
+#else
             catch(ArgumentException)
             {
                 throw new ObjectCastException(typeof(JToken), typeof(T));
             }
+#endif
         }
     }
 }

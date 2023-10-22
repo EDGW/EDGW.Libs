@@ -14,7 +14,7 @@ namespace EDGW.Data.Serialization
             var v = GetValueOrNull(obj, key, formatType, caster);
             return v ?? throw JsonSerializationException.MISSING_KEY(key, formatType, obj);
         }
-        public static IJsonCaster<T> GetCaster<T>(IJsonCaster<T>? caster)
+        public static IJsonCaster<T> GetCaster<T>(IJsonCaster<T>? caster) where T : notnull
         {
 
             if (caster == null)

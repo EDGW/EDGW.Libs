@@ -13,6 +13,12 @@ namespace EDGW.Data.Serialization
             { if (value is bool s) return s; }
             { if (value is JToken s) return s; }
             { if (value is IJsonSerializable s) return s.ToJson(); }
+            {
+                if(value is Enum enu)
+                {
+                    return Enum.GetName(typeof(T), value);
+                }
+            }
             throw new ObjectCastException(value.GetType(), typeof(JToken));
         }
 
@@ -29,6 +35,10 @@ namespace EDGW.Data.Serialization
                 if (typeof(T) == typeof(JArray)) { return (T)(object)token; }
                 if (typeof(T) == typeof(JObject)) { return (T)(object)token; }
                 if (typeof(T) == typeof(JValue)) { return (T)(object)token; }
+                if (typeof(Enum).IsAssignableFrom(typeof(T)))
+                {
+                    return (T)Enum.Parse(typeof(T), token.ToString());
+                }
                 throw new ObjectCastException(typeof(JToken), typeof(T));
             }
             catch(ArgumentException)

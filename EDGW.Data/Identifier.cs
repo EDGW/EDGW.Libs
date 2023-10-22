@@ -1,6 +1,9 @@
-﻿namespace EDGW.Globalization
+﻿using EDGW.Data.Serialization;
+using Newtonsoft.Json.Linq;
+
+namespace EDGW.Globalization
 {
-    public struct Identifier : IEquatable<Identifier>
+    public struct Identifier : IEquatable<Identifier> , IJsonSerializable<IdentifierCaster, Identifier>
     {
         public static Identifier Parse(string str)
         {
@@ -66,6 +69,12 @@
             if (!string.IsNullOrWhiteSpace(Namespace)) return $"{Namespace}:{Id}";
             return Id;
         }
+
+        public JToken ToJson()
+        {
+            return this.ToString();
+        }
+
         public string Namespace { get; }
         public string Id { get; }
     }

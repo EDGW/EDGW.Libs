@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections;
 using System.Reflection;
 
 namespace EDGW.Data.Serialization
@@ -37,6 +39,21 @@ namespace EDGW.Data.Serialization
                     return Enum.GetName(typeof(T), value);
                 }
             }
+            if (typeof(ICollection).IsAssignableFrom(typeof(T)))
+            {
+                JArray array = new JArray();
+                dynamic? caster = null;
+                foreach (dynamic val in (IEnumerable)value)
+                {
+                    if (caster == null)
+                    {
+                        Type t = typeof(DefaultCaster<>).MakeGenericType(val.GetType());
+                        caster = Activator.CreateInstance(t) ?? new DefaultCaster<object>();
+                    }
+                    array.Add(caster.GetJson(val));
+                }
+                return array;
+            }
             throw new ObjectCastException(value.GetType(), typeof(JToken));
         }
 
@@ -74,7 +91,25 @@ namespace EDGW.Data.Serialization
                     }
                     return (T)Enum.Parse(typeof(T), token.ToString());
                 }
-                throw new ObjectCastException(typeof(JToken), typeof(T));
+                var ts = typeof(T).GetInterface(typeof(ICollection<>).Name);
+                if (ts != null &&
+                    token is JArray arr)
+                {
+                    var type = ts.GetGenericArguments()[0];
+                    dynamic? caster = null;
+                    dynamic result = Activator.CreateInstance<T>();
+                    foreach (JToken tok in arr)
+                    {
+                        if (caster == null)
+                        {
+                            Type t = typeof(DefaultCaster<>).MakeGenericType(type);
+                            caster = Activator.CreateInstance(t) ?? new DefaultCaster<object>();
+                        }
+                        result.Add(caster.GetValue(tok));
+                    }
+                    return result;
+                }
+                throw new ObjectCastException(token.GetType(), typeof(T));
             }
 #if DEBUG
             finally { }

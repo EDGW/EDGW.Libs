@@ -11,4 +11,8 @@ namespace EDGW.Data.Serialization
     {
         public JToken ToJson();
     }
+    public interface IJsonSerializable<T, T2> : IJsonSerializable where T : IJsonCaster<T2>, new()
+    {
+
+    }
 }

@@ -23,6 +23,7 @@ namespace EDGW.Data.Serialization
                         caster = (IJsonCaster<T>?)t.Assembly?.CreateInstance(t.FullName ?? t.Name) ?? throw new Exception($"Internal Unexpected Core Exception:Cannot create cast instance of type {t.FullName ?? t.Name}.");
 
                     }
+                    else caster = new DefaultCaster<T>();
                 }
                 else caster = new DefaultCaster<T>();
             }

@@ -1,1 +1,1 @@
-
+# ∂‡”Ô—‘÷ß≥÷ Globalization

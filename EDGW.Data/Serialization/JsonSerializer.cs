@@ -4,13 +4,19 @@ namespace EDGW.Data.Serialization
 {
     public static class JsonSerializer
     {
+        public static void SetValue<T>(this JToken obj,string key,T value,IJsonCaster<T>? caster = null)
+        {
+            caster = GetCaster<T>(caster);
+            obj[key] = caster.GetJson(value);
+        }
         public static T GetValueOrThrow<T>(this JToken obj,string key,string formatType,IJsonCaster<T>? caster = null) where T:notnull
         {
             var v = GetValueOrNull(obj, key, formatType, caster);
             return v ?? throw JsonSerializationException.MISSING_KEY(key, formatType, obj);
         }
-        public static T? GetValueOrNull<T>(this JToken obj, string key, string formatType, IJsonCaster<T>? caster = null) where T : notnull
+        public static IJsonCaster<T> GetCaster<T>(IJsonCaster<T>? caster)
         {
+
             if (caster == null)
             {
                 var interf = typeof(T).GetInterface(typeof(IJsonSerializable<,>).Name);
@@ -27,6 +33,11 @@ namespace EDGW.Data.Serialization
                 }
                 else caster = new DefaultCaster<T>();
             }
+            return caster;
+        }
+        public static T? GetValueOrNull<T>(this JToken obj, string key, string formatType, IJsonCaster<T>? caster = null) where T : notnull
+        {
+            caster = GetCaster<T>(caster);
             var k = obj[key];
             if (k == null) return default(T);
             return caster.GetValue(k);

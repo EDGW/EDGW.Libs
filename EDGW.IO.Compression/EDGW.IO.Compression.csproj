@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Title>EDGW.IO.Compression</Title>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <Authors>EDGW_</Authors>
     <Company>EDGW_</Company>
     <RepositoryUrl>https://github.com/EDGW/EDGW.Libs</RepositoryUrl>

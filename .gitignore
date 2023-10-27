@@ -370,3 +370,5 @@ FodyWeavers.xsd
 /EDGW.DataTests/EDGW.DataTests.csproj
 /EDGW.DataTests/Serialization/JsonSerializerTests.cs
 /Tester/Tester.csproj
+/EDGW.DataTests/Logging/LoggerTests.cs
+/Tester/Program.cs

@@ -369,3 +369,4 @@ FodyWeavers.xsd
 /EDGW.IO.Compression/releases/alpha 0.0.1.zip
 /EDGW.DataTests/EDGW.DataTests.csproj
 /EDGW.DataTests/Serialization/JsonSerializerTests.cs
+/Tester/Tester.csproj

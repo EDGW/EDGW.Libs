@@ -54,7 +54,7 @@ namespace EDGW.Data.Logging
             while (counter < 1000)
             {
                 counter++;
-                var pth = Path.Combine(LogDirPath, date + counter + ".json");
+                var pth = Path.Combine(LogDirPath, date + counter + ".log");
                 try
                 {
                     Directory.CreateDirectory(LogDirPath);
@@ -249,6 +249,7 @@ namespace EDGW.Data.Logging
         internal void Print(string type, string lines, int tab = 0)
         {
             foreach (var line in lines.Split('\n')) PrintLine(Name, type, line, tab);
+            Writer.Flush();
         }
         internal void PrintExceptionInfo(string type, Exception exception, int tab = 4, int time = 0)
         {

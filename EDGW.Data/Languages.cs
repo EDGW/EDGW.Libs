@@ -1,4 +1,5 @@
 ﻿using EDGW.Data;
+using EDGW.Data.Logging;
 using EDGW.Data.Registries;
 using Newtonsoft.Json.Linq;
 
@@ -6,6 +7,7 @@ namespace EDGW.Globalization
 {
     public static class Languages
     {
+        static Logger logger = new("Globalization");
         public static Language EnglishUS { get; } = new Language("en_us", "English(US)", Priority.INNER_HIGHEST);
         public static Language ChineseSimplified { get; } = new Language("zh_cn", "简体中文", Priority.HIGHEST);
         static Languages()
@@ -24,6 +26,7 @@ namespace EDGW.Globalization
         public static void AddLanguageFile(Language lan, ILanguageFile lanfile)
         {
             lan.Add(lanfile);
+            logger.Info($"Registered language file {lanfile} for {lan}.");
         }
         public static void AddLanguageFile(string lantype,ILanguageFile lanfile)
         {
@@ -31,6 +34,7 @@ namespace EDGW.Globalization
             {
                 Language lan = new Language(lantype, $"(NS)lantype", Priority.LOW);
                 Registry.Register(lan);
+                logger.Info($"Registered language file {lanfile} for {lantype}.");
             }
             AddLanguageFile(Registry.Get(lantype), lanfile);
         }
@@ -47,6 +51,7 @@ namespace EDGW.Globalization
                     if (val != null) return val;
                 }
             }
+            logger.Warn($"missing value of key {key} in {lan}");
             return key;
         }
     }

@@ -8,6 +8,11 @@ namespace EDGW.Globalization
         {
             LoadJson(json, "");
         }
+        public override string ToString()
+        {
+            return $"Json({Count} Keys)";
+        }
+        public int Count { get; private set; }
         public void LoadJson(JObject json,Identifier prefix)
         {
             foreach(var pp in json)
@@ -22,6 +27,7 @@ namespace EDGW.Globalization
                     if (val != null)
                     {
                         Dictionary[(prefix + pp.Key).ToString()] = val;
+                        Count++;
                     }
                 }
             }

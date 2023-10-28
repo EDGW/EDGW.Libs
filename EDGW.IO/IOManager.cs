@@ -1,4 +1,5 @@
-﻿using EDGW.Data.Registries;
+﻿using EDGW.Data.Logging;
+using EDGW.Data.Registries;
 using EDGW.Globalization;
 using Newtonsoft.Json.Linq;
 using NotSupportedException = EDGW.Globalization.NotSupportedException;
@@ -11,9 +12,11 @@ namespace EDGW.IO
         {
             IOResolvers.Register(new BasicResolver());
         }
+        static Logger logger = new Logger("EDGW.IO"); 
         public static void LoadLanguageFiles()
         {
             Languages.AddLanguageFile("zh_cn", new JsonLanguageFile(JObject.Parse(LanRes.zh_cn)));
+            logger.Info("Registered language files.");
         }
         public static IRegistry<IIOResolver> IOResolvers { get; } = new PriorityRegistry<IIOResolver>();
         

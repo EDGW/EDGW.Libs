@@ -15,7 +15,7 @@ namespace EDGW.Globalization
         public Identifier Id { get; }
 
         public Priority Priority { get; }
-
+        public override string ToString() => $"{Name}({Id})";
         public string? GetString(string key,params string[] parameters)
         {
             var s = GetFormatString(key);

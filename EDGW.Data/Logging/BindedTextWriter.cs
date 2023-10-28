@@ -26,7 +26,7 @@ namespace EDGW.Data.Logging
         {
             await Main.DisposeAsync();
         }
-        public override void Write(string? value)
+        public override void Write(char value)
         {
             Main.Write(value);
             foreach(var m in Bindings)

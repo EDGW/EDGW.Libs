@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,8 +30,53 @@ namespace EDGW.Data.Logging
             Display = display ?? name;
             Name = name;
         }
-        public static TextWriter DefaultWriter => Console.Out;
+        static Logger logger = new("Logger");
+        public static TextWriter DefaultWriter => LogFile ? LogFileWriter : Console.Out;
+        public static TextWriter LogFileWriter { get; set; } = Console.Out;
         public static object locker = new();
+        public static bool LogFile { get; private set; } = false;
+        public static string LogDirPath { get; set; } = "logs\\";
+        public static void OpenLogFile(string? path = null)
+        {
+            if (path != null) LogDirPath = path;
+            var s = GetLogFileStream();
+            if (s != null) {
+                LogFileWriter = new StreamWriter(s);
+                LogFileWriter = new BindedTextWriter(Console.Out, LogFileWriter);
+                LogFile = true; 
+            }
+        }
+        public static FileStream? GetLogFileStream()
+        {
+            string date = DateTime.Now.ToString(@"yy-MM-dd HH");
+            int counter = 0;
+            FileStream? stream = null;
+            while (counter < 1000)
+            {
+                counter++;
+                var pth = Path.Combine(LogDirPath, date + counter + ".json");
+                try
+                {
+                    Directory.CreateDirectory(LogDirPath);
+                    stream = new FileStream(pth, FileMode.OpenOrCreate, FileAccess.Write);
+                    stream.SetLength(0);
+                    logger.Info($"Set logger file to {pth}.");
+                    break;
+                }catch(Exception ex)
+                {
+                    logger.Error($"Cannot open log file {pth}.", ex);
+                }
+            }
+            if (stream != null)
+            {
+                return stream;
+            }
+            else
+            {
+                logger.Fatal($"Cannot open log file after 1000 trials,please check your file system.");
+                return null;
+            }
+        }
         public TextWriter Writer { get; private set; }
         public Text Display { get; set; }
         public string Name { get; private set; }

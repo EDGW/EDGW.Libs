@@ -23,9 +23,9 @@ namespace EDGW.Data.Serialization
                 if (interf != null && interf.GenericTypeArguments.Length == 2)
                 {
                     var gena = interf.GenericTypeArguments;
-                    if (gena[1].GetInterface(typeof(IJsonCaster<>).Name)?.GenericTypeArguments[0] == typeof(T))
+                    if (gena[0].GetInterface(typeof(IJsonCaster<>).Name)?.GenericTypeArguments[0] == typeof(T))
                     {
-                        var t = gena[1];
+                        var t = gena[0];
                         caster = (IJsonCaster<T>?)t.Assembly?.CreateInstance(t.FullName ?? t.Name) ?? throw new Exception($"Internal Unexpected Core Exception:Cannot create cast instance of type {t.FullName ?? t.Name}.");
 
                     }

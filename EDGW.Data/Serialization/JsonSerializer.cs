@@ -4,7 +4,7 @@ namespace EDGW.Data.Serialization
 {
     public static class JsonSerializer
     {
-        public static void SetValue<T>(this JToken obj,string key,T value,IJsonCaster<T>? caster = null)
+        public static void SetValue<T>(this JToken obj,string key,T value,IJsonCaster<T>? caster = null) where T : notnull
         {
             caster = GetCaster<T>(caster);
             obj[key] = caster.GetJson(value);
@@ -13,6 +13,24 @@ namespace EDGW.Data.Serialization
         {
             var v = GetValueOrNull(obj, key, formatType, caster);
             return v ?? throw JsonSerializationException.MISSING_KEY(key, formatType, obj);
+        }
+        public static dynamic GetCaster(Type tp)
+        {
+            var interf = tp.GetInterface(typeof(IJsonSerializable<,>).Name);
+            if (interf != null && interf.GenericTypeArguments.Length == 2)
+            {
+                var gena = interf.GenericTypeArguments;
+                if (gena[0].GetInterface(typeof(IJsonCaster<>).Name)?.GenericTypeArguments[0] == tp)
+                {
+                    var t = gena[0];
+                    return t.Assembly?.CreateInstance(t.FullName ?? t.Name) ?? throw new Exception($"Internal Unexpected Core Exception:Cannot create cast instance of type {t.FullName ?? t.Name}.");
+
+                }
+            }
+            {
+                Type t = typeof(DefaultCaster<>).MakeGenericType(tp);
+                return Activator.CreateInstance(t) ?? new DefaultCaster<object>();
+            }
         }
         public static IJsonCaster<T> GetCaster<T>(IJsonCaster<T>? caster) where T : notnull
         {

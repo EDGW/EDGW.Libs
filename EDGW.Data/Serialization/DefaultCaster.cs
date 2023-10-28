@@ -100,11 +100,7 @@ namespace EDGW.Data.Serialization
                     dynamic result = Activator.CreateInstance<T>();
                     foreach (JToken tok in arr)
                     {
-                        if (caster == null)
-                        {
-                            Type t = typeof(DefaultCaster<>).MakeGenericType(type);
-                            caster = Activator.CreateInstance(t) ?? new DefaultCaster<object>();
-                        }
+                        if (caster == null)caster = JsonSerializer.GetCaster(type);
                         result.Add(caster.GetValue(tok));
                     }
                     return result;
